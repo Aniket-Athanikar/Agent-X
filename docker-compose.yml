@@ -1,0 +1,128 @@
+version: "3.9"
+
+services:
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: agent-x-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+
+  # Frontend - Next.js Development Server
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: agent-x-frontend
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=/api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    restart: unless-stopped
+
+  # Backend - FastAPI Development Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: agent-x-backend
+
+    # Load AI provider configuration from .env
+    env_file:
+      - ./backend/.env
+
+    environment:
+      # Database
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=agentforgeDB
+      - DB_USER=aniket
+      - DB_PASSWORD=admin123
+
+      # Application
+      - SECRET_KEY=mysecretkey
+      - DEBUG=True
+
+      # Qdrant
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+
+      # Redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+      # Ollama on Windows host
+      - OLLAMA_HOST=http://host.docker.internal:11434
+
+    volumes:
+      - ./backend:/app
+
+    ports:
+      - "8000:8000"
+
+    restart: unless-stopped
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      qdrant:
+        condition: service_started
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Database - PostgreSQL
+  postgres:
+    image: postgres:16
+    container_name: agent-x-postgres
+    environment:
+      POSTGRES_USER: aniket
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: agentforgeDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aniket -d agentforgeDB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Cache & Message Broker - Redis
+  redis:
+    image: redis:7-alpine
+    container_name: agent-x-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Vector Database - Qdrant
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: agent-x-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  qdrant_data:

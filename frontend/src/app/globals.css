@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-dm-sans), sans-serif;
+  --font-albert: var(--font-albert-sans), sans-serif;
+
+  --color-background: #030712;
+  /* Premium luxury dark slate-gray-blue background */
+  --color-surface: #050816;
+  --color-card: #0b0f19;
+  --color-primary: #10B981;
+  /* Emerald Primary */
+  --color-accent-cyan: #06B6D4;
+  --color-accent-emerald: #34D399;
+  --color-text-primary: #F3F4F6;
+  --color-text-secondary: #94A3B8;
+  --color-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-dm-sans), var(--font-albert-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Tailwind Utilities */
+@utility glass {
+  background: rgba(5, 8, 22, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+@utility glass-card {
+  background: linear-gradient(145deg, rgba(5, 8, 22, 0.8), rgba(3, 7, 18, 0.9));
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+@utility text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-accent-cyan));
+}
+
+/* Standard Global CSS classes (avoids Next.js/Tailwind v4 nesting evaluation bugs) */
+.aurora-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Force other pages and sections using dark/solid background classes to be transparent, letting the global body gradient show through */
+*[class*="bg-[#081a14]"],
+*[class*="bg-[#020c09]"],
+*[class*="bg-[#020705]"],
+*[class*="bg-background"],
+.grid-bg {
+  background-color: transparent !important;
+}
+
+.aurora-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.08), transparent 50%);
+  z-index: -2;
+  animation: rotate 20s linear infinite;
+}
+
+.aurora-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.035) 1px, transparent 1px);
+  background-size: 160px 160px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-card);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ==========================================================================
+   Light Section Theme Overrides (Alternating Theme Pattern)
+   ========================================================================== */
+.light-section {
+  position: relative;
+  background-color: #F4F6F5 !important;
+  background-image:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(20, 184, 166, 0.01) 15%,
+      rgba(20, 184, 166, 0.04) 50%,
+      rgba(20, 184, 166, 0.01) 85%,
+      rgba(255, 255, 255, 0.8) 100%) !important;
+  background-size: 160px 100% !important;
+  background-repeat: repeat-x !important;
+  color: #020C09 !important;
+}
+
+.light-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  background-size: 160px 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Typography Overrides */
+.light-section h1,
+.light-section h2,
+.light-section h3,
+.light-section h4,
+.light-section h5,
+.light-section h6,
+.light-section .text-white,
+.light-section .text-gray-100 {
+  color: #020C09 !important;
+}
+
+.light-section p,
+.light-section span:not(.text-primary):not(.text-accent-cyan):not(.text-emerald-400):not(.text-cyan-400),
+.light-section .text-text-secondary,
+.light-section .text-gray-400,
+.light-section .text-gray-500 {
+  color: #334139 !important;
+}
+
+/* Glass & Card Element Overrides */
+.light-section .glass-card,
+.light-section .glass {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  color: #020C09 !important;
+}
+
+.light-section .glass-card * {
+  color: #020C09 !important;
+}
+
+.light-section .glass-card p,
+.light-section .glass-card span {
+  color: #334139 !important;
+}
+
+/* Accent highlight tweaks to remain readable on light background */
+.light-section .text-primary,
+.light-section .text-emerald-400 {
+  color: #0d9488 !important;
+}
+
+.light-section .text-accent-cyan,
+.light-section .text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+.light-section .bg-white\/5,
+.light-section .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.light-section .border-white\/5,
+.light-section .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* SVG grid lines override inside light sections */
+.light-section svg path[stroke="rgba(255,255,255,0.08)"],
+.light-section svg path[stroke="rgba(255,255,255,0.05)"] {
+  stroke: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Style step buttons in HowAILearns on light theme */
+.light-section button[class*="bg-[#07130E]"] {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.light-section button[class*="bg-[#07130E]"]:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-section button[class*="bg-[#0F261E]"] {
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.06) !important;
+}
+
+.light-section button[class*="bg-[#0F261E]"] h4,
+.light-section button[class*="bg-[#0F261E]"] p {
+  color: #020C09 !important;
+}
+
+.light-section button[class*="bg-[#07130E]"] h4 {
+  color: #020C09 !important;
+}
+
+.light-section button[class*="bg-[#07130E]"] p {
+  color: #334139/70 !important;
+}

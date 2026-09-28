@@ -1,0 +1,41 @@
+# Python
+af_env/
+venv/
+.env
+backend/.env
+__pycache__/
+*.pyc
+
+# Next.js
+frontend/.next/
+frontend/node_modules/
+
+# Python cache
+**/__pycache__/
+*.pyo
+*.pyd
+
+# Docker
+*.log
+
+# Python
+af_env/
+venv/
+__pycache__/
+*.py[cod]
+
+# Node
+node_modules/
+.next/
+out/
+
+# Environment
+.env
+backend/.env
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
