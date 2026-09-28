@@ -339,46 +339,71 @@ This provides the foundation for future engineering analytics and usage dashboar
 
 ## 🌐 Landing Page
 
-The Agent-X landing page introduces the product, its engineering workflows, and repository intelligence capabilities.
+The Agent-X landing page introduces the platform, repository intelligence workflow, AI engineering capabilities, and developer-focused workspace.
 
-### Landing Page
+<p align="center">
+  <img src="frontend/public/landing-1.png" alt="Agent-X Landing Page - Hero" width="850"/>
+</p>
 
-| Preview         | Preview         |
-| --------------- | --------------- |
-| `landing-1.png` | `landing-2.png` |
-| `landing-3.png` | `landing-4.png` |
+<p align="center">
+  <img src="frontend/public/landing-2.png" alt="Agent-X Landing Page - Features" width="850"/>
+</p>
+
+<p align="center">
+  <img src="frontend/public/landing-3.png" alt="Agent-X Landing Page - AI Engineering" width="850"/>
+</p>
+
+<p align="center">
+  <img src="frontend/public/landing-4.png" alt="Agent-X Landing Page - Platform" width="850"/>
+</p>
 
 ---
 
 ## 🔐 Authentication
 
-Agent-X provides a protected authentication flow with email and OTP verification.
+Agent-X includes a protected authentication flow with email verification and OTP-based verification.
 
-| Login       | OTP Verification |
-| ----------- | ---------------- |
-| `login.png` | `otp.png`        |
+### Login
+
+<p align="center">
+  <img src="frontend/public/login.png" alt="Agent-X Login" width="850"/>
+</p>
+
+### OTP Verification
+
+<p align="center">
+  <img src="frontend/public/otp.png" alt="Agent-X OTP Verification" width="850"/>
+</p>
 
 ---
 
 ## 🧠 Agent-X Workspace
 
-### Repository Selection
+The Agent-X workspace combines repository exploration, source-code inspection, and contextual AI assistance.
 
-Select the repository or folder that should be analyzed.
+### 1. Repository Selection
 
-`workspace-folder.png`
+Select the folder or repository that should be analyzed.
 
-### Project Structure
+<p align="center">
+  <img src="frontend/public/workspace-folder.png" alt="Agent-X Repository Folder Selection" width="850"/>
+</p>
 
-Explore the repository through the workspace file explorer.
+### 2. Project Structure
 
-`workspace-project-structure.png`
+After selecting the repository, Agent-X analyzes the project and presents its structure through the workspace explorer.
 
-### AI Engineering Workspace
+<p align="center">
+  <img src="frontend/public/workspace-project-structure.png" alt="Agent-X Project Structure" width="850"/>
+</p>
 
-Select files, inspect source code, and interact with Agent-X using contextual AI assistance.
+### 3. AI Engineering Workspace
 
-`workspace-ai-output.png`
+Select a file, inspect its source code, and interact with Agent-X using contextual AI assistance.
+
+<p align="center">
+  <img src="frontend/public/workspace-ai-output.jpeg" alt="Agent-X AI Code Understanding Output" width="850"/>
+</p>
 
 > Screenshots can be placed in the repository's `frontend/public/` directory and referenced directly from the README.
 
